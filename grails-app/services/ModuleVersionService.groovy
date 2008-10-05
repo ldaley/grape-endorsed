@@ -44,7 +44,7 @@ class ModuleVersionService {
     }
 
     def setAsEndorsedVersion(moduleVersion, groovy) {
-        def groovy = (groovy instanceof Groovy) ? groovy : groovyService[groovy]
+        groovy = (groovy instanceof Groovy) ? groovy : groovyService[groovy]
         def existingEndorsedVersion = moduleVersion.module[groovy.tag]
         if (existingEndorsedVersion) {
             existingEndorsedVersion.removeFromGroovies(groovy)
@@ -53,7 +53,7 @@ class ModuleVersionService {
     }
 
     def unsetAsEndorsedVersion(moduleVersion, groovy) {
-        def groovy = (groovy instanceof Groovy) ? groovy : groovyService[groovy]
+        groovy = (groovy instanceof Groovy) ? groovy : groovyService[groovy]
         moduleVersion.removeFromGroovies(groovy)
     }
 

@@ -1,4 +1,5 @@
 class Module implements Comparable {
+
     static hasMany = [versions: ModuleVersion]
     String name
     String org

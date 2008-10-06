@@ -23,4 +23,9 @@ class Module implements Comparable {
         name
     }
     
+    def getUnmappedGroovies() {
+        Groovy.getAll().findAll { groovy ->
+            groovy.moduleVersions.find { it.module == this } == null
+        }
+    }
 }

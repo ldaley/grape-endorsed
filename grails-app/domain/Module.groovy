@@ -10,13 +10,8 @@ class Module implements Comparable {
     }
     
     def getAt(String groovy) {
-        ModuleVersion.createCriteria().get {
-            and {
-                eq('module', this)
-                groovies {
-                    eq('tag', groovy)
-                }
-            }
+        this.versions.find {
+            it.groovies.find { it.tag == groovy } != null
         }
     }
     

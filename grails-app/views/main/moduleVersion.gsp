@@ -43,15 +43,12 @@
             <ul>
                 <table id="moduleVersionGroovyAssociations">
                     <g:each in="${groovies}" var="groovy">
-                        <% 
-                            isEndorsedVersion = moduleVersion.isVersionFor(groovy.tag) 
-                            endorsedVersion = (isEndorsedVersion) ? moduleVersion : moduleVersion.module[groovy.tag]
-                        %>
+                        <g:set var="endorsedVersion" value="${moduleVersion.module[groovy.tag]}" />
                         <tr>
                             <td class="checkbox">
                                 <g:form name="${groovy}Form" action="moduleVersion" params="[module: moduleVersion.module, moduleVersion: moduleVersion]">
                                 <g:hiddenField name="groovyAssociation" value="${groovy}" />
-                                    <g:checkBox name="endorsedVersion" value="${isEndorsedVersion}" onclick="toggleAssociation(this, '${moduleVersion}', '${groovy}', '${endorsedVersion?.tag}')"/>
+                                    <g:checkBox name="endorsedVersion" value="${endorsedVersion == moduleVersion}" onclick="toggleAssociation(this, '${moduleVersion}', '${groovy}', '${endorsedVersion?.tag}')"/>
                                 </g:form>
                             </td>
                             <td class="version">

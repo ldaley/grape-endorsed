@@ -32,7 +32,6 @@ class MainController {
     
     def moduleVersion = { 
         
-        
         def module = moduleService[params.module]
         def groovies = Groovy.findAll()
         
@@ -44,8 +43,12 @@ class MainController {
         }
         
         if (request.post) {
-            if (params.endorsedVersion) {
-                moduleVersionService.setAsEndorsedVersion(moduleVersion, params.groovyAssociation)
+            if (params.groovyAssociation) {
+                if (params.endorsedVersion) {
+                    moduleVersionService.setAsEndorsedVersion(moduleVersion, params.groovyAssociation)
+                } else {
+                    moduleVersionService.unsetAsEndorsedVersion(moduleVersion, params.groovyAssociation)
+                }
             }
         }
         

@@ -35,6 +35,19 @@
                 </table>
             </g:form>
         </div>
+        <g:set var="unmappedGroovies" value="${module.unmappedGroovies}" />
+        <g:if test="${unmappedGroovies}">
+        <div id="unmappedGroovyVersions">
+            <h2>Unmapped Groovy Versions</h2>
+            <ul>
+                <g:each var="groovy" in="${module.unmappedGroovies}">
+                    <li>${groovy}</li>
+                </g:each>
+            </ul>
+        </div>
+        </g:if>
+        
+
         <div><g:link action="list">List all modules</g:link></div>
     </body>
 </html>

@@ -44,8 +44,8 @@ class MainController {
         }
         
         if (request.post) {
-            if (request.params.endorsedVersion) {
-                moduleVersionService.setAsEndorsedVersion(moduleVersion, params.groovy)
+            if (params.endorsedVersion) {
+                moduleVersionService.setAsEndorsedVersion(moduleVersion, params.groovyAssociation)
             }
         }
         

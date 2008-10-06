@@ -50,14 +50,14 @@
                         <tr>
                             <td class="checkbox">
                                 <g:form name="${groovy}Form" action="moduleVersion" params="[module: moduleVersion.module, moduleVersion: moduleVersion]">
-                                <g:hiddenField name="groovy" value="${groovy}" />
+                                <g:hiddenField name="groovyAssociation" value="${groovy}" />
                                     <g:checkBox name="endorsedVersion" value="${isEndorsedVersion}" onclick="toggleAssociation(this, '${moduleVersion}', '${groovy}', '${endorsedVersion?.tag}')"/>
                                 </g:form>
                             </td>
                             <td class="version">
                                 <g:link controller="groovy" action="show" params="[groovy: groovy.tag]">${groovy}</g:link>
                                 <g:if test="${endorsedVersion && (endorsedVersion != moduleVersion)}">
-                                   <span class="currentlyAssociated">(currently endorsed version is ${endorsedVersion.tag})</span>
+                                   <span class="currentlyAssociated">(currently endorsed version is ${endorsedVersion})</span>
                                 </g:if>
                             </td>
                         </tr>

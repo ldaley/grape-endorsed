@@ -1,5 +1,3 @@
-import grails.converters.deep.XML
-
 class MainController {
 
     def groovyService
@@ -8,9 +6,6 @@ class MainController {
     
     def defaultAction = "list"
     
-    def find = {
-    }
-
     def module = {
         if (!params.module) redirect(action: "list")
         def model = [module: moduleService[params.module]]

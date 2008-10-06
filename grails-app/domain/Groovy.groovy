@@ -1,6 +1,6 @@
 class Groovy implements Comparable {
     static belongsTo = ModuleVersion
-    static hasMany = [modules: ModuleVersion]
+    static hasMany = [moduleVersions: ModuleVersion]
     String tag
     Date released
     

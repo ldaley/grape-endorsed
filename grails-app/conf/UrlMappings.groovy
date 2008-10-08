@@ -4,6 +4,8 @@ class UrlMappings {
     static moduleContstraints = [matches: /^(?!images|css|js)[a-zA-Z].*/]
     
     static mappings = {
+        "/"(controller: "main", action: "list")
+
         "/$groovy/$module/ivy.xml"(controller:"main", action: "ivy")
         "/$groovy/$module"(controller:"main", action: "moduleVersion") {
             constraints {
@@ -15,7 +17,7 @@ class UrlMappings {
                 groovy(this.groovyContstraints)
             }
         }
-        "/"(controller: "main")
+
         "/$module"(controller:"main", action: "module") {
             constraints {
                 module(this.moduleContstraints)
@@ -31,6 +33,7 @@ class UrlMappings {
                 module(this.moduleContstraints)
             }
         }
+
         "500"(view: "/error")
     }
 }

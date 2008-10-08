@@ -31,11 +31,6 @@ class UrlMappings {
                 module(this.moduleContstraints)
             }
         }
-        "/$controller/$action/$id?"{
-            constraints {
-                // apply constraints here
-            }
-        }
         "500"(view: "/error")
     }
 }

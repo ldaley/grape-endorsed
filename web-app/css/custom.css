@@ -1,0 +1,23 @@
+table.moduleVersions tr {
+    cursor: pointer;
+}
+
+p.buttons {
+    padding-top: 1em;
+}
+
+.button {
+    margin-bottom: 0px;
+}
+
+table.moduleVersions tr:hover {
+    background-color: #ff0;
+}
+
+body.moduleVersion div#groovyVersions td.version {
+    width: 100%;
+}
+
+.added a, .removed a {
+    color: white;
+}

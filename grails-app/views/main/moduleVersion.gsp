@@ -16,51 +16,54 @@
                 }
             }
         </script>
-        <style type="text/css" media="screen">
-            #moduleVersionGroovyAssociations .checkbox {
-                width: 1em;
-            }
-            #moduleVersionGroovyAssociations .currentlyAssociated {
-                color: red;
-                font-size: 9px;
-            }
-        </style>
     </head>
-    <body class="moduleVersionInfo">
-        <div id="module">
-            <h1><g:link action="module" params="[module: moduleVersion.module.name]">${moduleVersion.module.name}</g:link></h1>
-        </div>
-        <div id="version">
-            <h2>Version</h2>
-            <p>${moduleVersion.tag}</p>
+    <body class="moduleVersion">
+        <h1>${moduleVersion.module}-${moduleVersion}</h1>
+        <div id="moduleVersionDetails">
+            <g:form action="moduleVersion" params="[module: moduleVersion.module, moduleVersion: moduleVersion]">
+                <fieldset>
+                    <legend>Module Version Details</legend>
+                    <label for="name" class="clearfix">Version Number</label>
+                    <g:textField name="name" value="${moduleVersion.tag}" class="text" />
+                    <p class="buttons">
+                        <button type="submit" class="button positive">Update</button>
+                        <button type="submit" class="button negative">Delete</button>
+                    </p>
+                </fieldset>
+            </g:form>
         </div>
         <div id="ivyDescriptor">
-            <h2>Ivy Descriptor</h2>
-            <pre id="descriptor">${moduleVersion.ivyDescriptor.encodeAsHTML()}</pre>
+            <fieldset>
+                <legend>Ivy Descriptor</legend>
+                <pre id="descriptor">${moduleVersion.ivyDescriptor.encodeAsHTML()}</pre>
+            </fieldset>
         </div>
         <div id="groovyVersions">
-            <h2>Groovy Versions</h2>
-            <ul>
-                <table id="moduleVersionGroovyAssociations">
+            <fieldset>
+                <legend>Groovy Versions</legend>
+                <table>
+                    <tr><th>Endorsed?</th><th>Groovy</th></tr>
                     <g:each in="${groovies}" var="groovy">
                         <g:set var="endorsedVersion" value="${moduleVersion.module[groovy.tag]}" />
-                        <tr>
+                        <tr class="${(endorsedForGroovy == groovy.tag) ? 'added' : ''} ${(unendorsedForGroovy == groovy.tag) ? 'removed' : ''}">
                             <td class="checkbox">
                                 <g:form name="${groovy}Form" action="moduleVersion" params="[module: moduleVersion.module, moduleVersion: moduleVersion]">
                                 <g:hiddenField name="groovyAssociation" value="${groovy}" />
                                     <g:checkBox name="endorsedVersion" value="${endorsedVersion == moduleVersion}" onclick="toggleAssociation(this, '${moduleVersion}', '${groovy}', '${endorsedVersion?.tag}')"/>
                                 </g:form>
+                                
                             </td>
+                            
                             <td class="version">
                                 <g:link controller="groovy" action="show" params="[groovy: groovy.tag]">${groovy}</g:link>
                                 <g:if test="${endorsedVersion && (endorsedVersion != moduleVersion)}">
-                                   <span class="currentlyAssociated">(currently endorsed version is ${endorsedVersion})</span>
+                                    <span class="small">(current endorsed module version is <strong>${endorsedVersion})<strong></span>
                                 </g:if>
                             </td>
                         </tr>
                     </g:each>
                 </table>
-            </ul>
+            </fieldset>
         </div>
     </body>
 </html>

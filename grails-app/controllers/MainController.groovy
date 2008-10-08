@@ -28,8 +28,7 @@ class MainController {
     def moduleVersion = { 
         
         def module = moduleService[params.module]
-        def groovies = Groovy.findAll()
-        
+
         def moduleVersion
         if (params.moduleVersion) {
             moduleVersion = moduleVersionService[module, params.moduleVersion]
@@ -37,17 +36,25 @@ class MainController {
             moduleVersion = moduleVersionService[module, groovyService[params.groovy]]
         }
         
+        def model = [
+            moduleVersion: moduleVersion, 
+            groovies: Groovy.findAll(),
+            footerLinks: ["Parent Module": createLink(action: "module", params: [module: moduleVersion.module])]
+        ]
+
         if (request.post) {
             if (params.groovyAssociation) {
                 if (params.endorsedVersion) {
                     moduleVersionService.setAsEndorsedVersion(moduleVersion, params.groovyAssociation)
+                    model.endorsedForGroovy = params.groovyAssociation
                 } else {
                     moduleVersionService.unsetAsEndorsedVersion(moduleVersion, params.groovyAssociation)
+                    model.unendorsedForGroovy = params.groovyAssociation
                 }
             }
         }
         
-        [moduleVersion: moduleVersion, groovies: groovies]
+        model
     }
     
     def ivy = {        

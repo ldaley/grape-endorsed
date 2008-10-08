@@ -1,9 +1,9 @@
-<table class="moduleVersionListing">
+<table class="moduleVersions">
     <tr><th>Version</th><th>Groovy Versions</th></tr>
     <g:each var="version" in="${it.versions.sort()}">
-        <tr>
+        <tr onclick="window.location = '<g:createLink controller="main" action="moduleVersion" params="[module: it.name, moduleVersion: version.tag]" />'">
             <td class="version">
-                <g:link controller="main" action="moduleVersion" params="[module: it.name, moduleVersion: version.tag]">${version.tag}</g:link>
+                ${version.tag}
             </td>
             <td class="groovies">
                 <% 

@@ -12,6 +12,15 @@
     </head>
     <body onload="${pageProperty(name:'body.onload')}" class="${pageProperty(name:'body.class')}">
         <div class="container">
+            <g:if test="${flash.success}">
+                <div class="success">${flash.success}</div>
+            </g:if>
+            <g:if test="${flash.error}">
+                <div class="error">${flash.error}</div>
+            </g:if>
+            <g:if test="${flash.notice}">
+                <div class="notice">${flash.notice}</div>
+            </g:if>
             <g:layoutBody />
             <div>
                 [ <g:link controller="main", action="list">Home</g:link> ]

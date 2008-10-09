@@ -32,7 +32,7 @@
                     <g:textField name="org" value="${fieldValue(bean:module,field:'org')}" class="text ${hasErrors(bean: module, field: 'org', ' error')}" />
                     <p class="buttons">
                         <g:submitButton name="update" value="Update" />
-                        <g:submitButton name="delete" value="Delete" />
+                        <g:submitButton name="delete" value="Delete" onclick="return confirm('You are about to delete this module!');"/>
                     </p>
                 </fieldset>
             </g:form>

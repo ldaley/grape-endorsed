@@ -62,10 +62,10 @@ class MainController {
             if (params.groovyAssociation) {
                 if (params.endorsedVersion) {
                     moduleVersionService.setAsEndorsedVersion(moduleVersion, params.groovyAssociation)
-                    model.endorsedForGroovy = params.groovyAssociation
+                    flash.success = "set as endorsed version for Groovy ${params.groovyAssociation}"
                 } else {
                     moduleVersionService.unsetAsEndorsedVersion(moduleVersion, params.groovyAssociation)
-                    model.unendorsedForGroovy = params.groovyAssociation
+                    flash.notice = "unset as endorsed version for Groovy ${params.groovyAssociation}"
                 }
             } else if (params.update) {
                 def oldTag = model.moduleVersion.tag
@@ -120,7 +120,6 @@ class MainController {
             }
         }
         
-        model.modules = moduleService.find()
         return model
     }
 }

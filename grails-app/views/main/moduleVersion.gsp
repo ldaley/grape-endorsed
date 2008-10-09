@@ -55,7 +55,7 @@
                     <tr><th>Endorsed?</th><th>Groovy</th></tr>
                     <g:each in="${groovies}" var="groovy">
                         <g:set var="endorsedVersion" value="${moduleVersion.module[groovy.tag]}" />
-                        <tr class="${(endorsedForGroovy == groovy.tag) ? 'added' : ''} ${(unendorsedForGroovy == groovy.tag) ? 'removed' : ''}">
+                        <tr>
                             <td class="checkbox">
                                 <g:form name="${groovy}Form" action="moduleVersion" params="[module: moduleVersion.module, moduleVersion: moduleVersion]">
                                 <g:hiddenField name="groovyAssociation" value="${groovy}" />

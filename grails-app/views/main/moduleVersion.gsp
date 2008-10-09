@@ -3,6 +3,11 @@
         <title>An Example Page</title>
         <meta name="layout" content="main"></meta>
         <script type="text/javascript" charset="utf-8">
+            function init () {
+                i = $("moduleVersionForm").getInputs("text").find(function(it) { return it.hasClassName("error") });
+                if (i) i.focus();
+            }
+
             function toggleAssociation (checkbox, moduleVersion, groovy, associatedTo) {
                 
                 msg = "You are about to " + ((checkbox.checked) ? 'set' : 'unset') + " version " + moduleVersion + " as the endorsed version of '${moduleVersion.module.name}' for groovy " + groovy + ".";
@@ -17,17 +22,22 @@
             }
         </script>
     </head>
-    <body class="moduleVersion">
+    <body class="moduleVersion" onload="init();">
         <h1>${moduleVersion.module}-${moduleVersion}</h1>
         <div id="moduleVersionDetails">
-            <g:form action="moduleVersion" params="[module: moduleVersion.module, moduleVersion: moduleVersion]">
+            <g:form action="moduleVersion" params="[module: moduleVersion.module, moduleVersion: moduleVersion]" name="moduleVersionForm">
                 <fieldset>
                     <legend>Module Version Details</legend>
-                    <label for="name" class="clearfix">Version Number</label>
-                    <g:textField name="name" value="${moduleVersion.tag}" class="text" />
+                    <g:if test="${moduleVersion.hasErrors()}">
+                        <div class="error">
+                            <g:renderErrors bean="${moduleVersion}" as="list" />
+                        </div>
+                    </g:if>
+                    <label for="tag" class="clearfix">Version Number</label>
+                    <g:textField name="tag" value="${fieldValue(bean:moduleVersion,field:'tag')}" class="text ${hasErrors(bean: moduleVersion, field: 'tag', ' error')}" />
                     <p class="buttons">
-                        <button type="submit" class="button positive">Update</button>
-                        <button type="submit" class="button negative">Delete</button>
+                        <g:submitButton name="update" value="Update" />
+                        <g:submitButton name="delete" value="Delete" onclick="return confirm('You are about to delete this module version!');"/>
                     </p>
                 </fieldset>
             </g:form>

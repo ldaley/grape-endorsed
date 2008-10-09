@@ -67,6 +67,20 @@ class MainController {
                     moduleVersionService.unsetAsEndorsedVersion(moduleVersion, params.groovyAssociation)
                     model.unendorsedForGroovy = params.groovyAssociation
                 }
+            } else if (params.update) {
+                def oldTag = model.moduleVersion.tag
+                model.moduleVersion.tag = params.tag
+                if (!model.moduleVersion.hasErrors() && model.moduleVersion.save()) {
+                    flash.success = "version number changed to '${model.moduleVersion.tag}'"
+                    if (oldTag != model.moduleVersion.tag)
+                        redirect(action: "moduleVersion", params: [module: model.moduleVersion.module.name, moduleVersion: model.moduleVersion.tag])
+                } else {
+                    model.moduleVersion.refresh()
+                }
+            } else if (params.delete) {
+                model.moduleVersion.delete(flush:true)
+                flash.notice = "version '${model.moduleVersion.tag}' deleted"
+                redirect(action: "module", params: [module: model.moduleVersion.module.name])
             }
         }
         

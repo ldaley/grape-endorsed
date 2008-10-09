@@ -10,18 +10,34 @@ class MainController {
         if (!params.module) redirect(action: "list")
         def model = [module: moduleService[params.module]]
         params.module = null
+
         if (request.post) {
             if (params.delete) {
                 model.module.delete(flush:true)
+                flash.notice = "module '${model.module.name}' deleted"
                 redirect(uri: "/")
-            }
-            def moduleVersion = new ModuleVersion(tag: params.tag, module: model.module)
-            if (!moduleVersion.hasErrors() && moduleVersion.save()) {
-                redirect(action: "moduleVersion", params: [module: model.module.name, moduleVersion: moduleVersion.tag])
-            } else {
-                model.moduleVersion = moduleVersion
+            } else if (params.update) {
+                def oldName = model.module.name
+                model.module.name = params.name
+                model.module.org = params.org
+                if (!model.module.hasErrors() && model.module.save()) {
+                    flash.success = "Details Updated"
+                    if (oldName != model.module.name)
+                        redirect(action: "module", params: [module: model.module.name])
+                } else {
+                    model.module.refresh()
+                }
+            } else if (params.moduleVersion) {
+                def moduleVersion = new ModuleVersion(tag: params.tag, module: model.module)
+                if (!moduleVersion.hasErrors() && moduleVersion.save()) {
+                    flash.success = "version '${params.tag}' registered"
+                    redirect(action: "moduleVersion", params: [module: model.module.name, moduleVersion: moduleVersion.tag])
+                } else {
+                    model.moduleVersion = moduleVersion
+                }
             }
         }
+        
         model
     }
     

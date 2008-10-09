@@ -4,13 +4,10 @@ table.moduleVersions tr {
 
 p.buttons {
     padding-top: 1em;
-}
-
-.button {
     margin-bottom: 0px;
 }
 
-table.moduleVersions tr:hover {
+table.moduleVersions tr:hover td, table.moduleVersions tr.even:hover td {
     background-color: #ff0;
 }
 
@@ -18,6 +15,14 @@ body.moduleVersion div#groovyVersions td.version {
     width: 100%;
 }
 
+body.module div#moduleVersions td.version {
+    width: 100%;
+}
+
 .added a, .removed a {
     color: white;
+}
+
+.error ul {
+    margin-bottom: 0em;
 }

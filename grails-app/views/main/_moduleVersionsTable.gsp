@@ -1,7 +1,8 @@
+<g:set var="even" value="${false}" />
 <table class="moduleVersions">
     <tr><th>Version</th><th>Groovy Versions</th></tr>
     <g:each var="version" in="${it.versions.sort()}">
-        <tr onclick="window.location = '<g:createLink controller="main" action="moduleVersion" params="[module: it.name, moduleVersion: version.tag]" />'">
+        <tr class="${(even) ? 'even' : ''}" onclick="window.location = '<g:createLink controller="main" action="moduleVersion" params="[module: it.name, moduleVersion: version.tag]" />'">
             <td class="version">
                 ${version.tag}
             </td>
@@ -14,5 +15,6 @@
                 ${tags.join(', ')}
             </td>
         </tr>
+        <g:set var="even" value="${!even}" />
     </g:each>
 </table>

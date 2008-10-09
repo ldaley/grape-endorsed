@@ -1,6 +1,13 @@
 class ModuleVersion implements Comparable {
+
     static hasMany = [groovies: Groovy]
     static belongsTo = Module
+    static constraints = {
+        tag(nullable: false, blank: false)
+        module(nullable: false)
+    }
+    
+    
     Module module
     String tag
     

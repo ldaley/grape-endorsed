@@ -102,14 +102,23 @@ class MainController {
     }
     
     def list = {
-        def model = [:]
+        def model = [showModules: true, groovies: Groovy.list()]
         if (request.post) {
-            if (params.cancel) redirect(action: "list")
-            def module = new Module(params)
-            if (!module.hasErrors() && module.save()) {
-                redirect(action: "show", params: [module: module.name])
-            } else {
-                model.module = module
+            if (params.registerModule) {
+                def module = new Module(params)
+                if (!module.hasErrors() && module.save()) {
+                    redirect(action: "module", params: [module: module.name])
+                } else {
+                    model.module = module
+                }
+            } else if (params.registerGroovy) {
+                def groovy = groovyService.register(params.tag, params.copyVersion)
+                if (!groovy.hasErrors()) {
+                    redirect(action: "groovy", params: [groovy: groovy.tag])
+                } else {
+                    model.groovy = groovy
+                    model.showModules = false
+                }
             }
         } else {
             model.modules = moduleService.find(name: params.name, org: params.org, groovy: params.groovy)
@@ -121,5 +130,9 @@ class MainController {
         }
         
         return model
+    }
+    
+    def groovy = {
+        
     }
 }

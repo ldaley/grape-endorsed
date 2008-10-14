@@ -9,4 +9,15 @@ class GroovyService {
         }
     }
 
+    def register(tag, copyEndorsementsFrom) {
+        def copyFrom = this[copyEndorsementsFrom]
+        def groovy = new Groovy(tag: tag)
+        if (!groovy.hasErrors() && groovy.save()) {
+            copyFrom.moduleVersions.each {
+                it.groovies << groovy
+                it.save()
+            }
+        }
+        return groovy
+    }
 }

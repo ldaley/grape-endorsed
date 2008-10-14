@@ -12,7 +12,7 @@ class UrlMappings {
                 groovy(this.groovyContstraints)
             }
         }
-        "/$groovy"(controller: "main", action: "show") {
+        "/$groovy"(controller: "main", action: "groovy") {
             constraints {
                 groovy(this.groovyContstraints)
             }

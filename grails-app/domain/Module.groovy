@@ -5,7 +5,7 @@ class Module implements Comparable {
     String org
     
     static constraints = {
-        name(nullable: false, blank: false, matches: /^\p{Alpha}.*/)
+        name(unique: true, nullable: false, blank: false, matches: /^\p{Alpha}.*/)
         org(nullable: false, blank: false)
     }
     
